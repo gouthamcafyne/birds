@@ -79,6 +79,7 @@ public class BirdControllerAPI {
 			bird.setName(birdRequest.getName());
 			bird.setFamily(birdRequest.getFamily());
 			bird.setContinents(birdRequest.getContinent());
+			bird.setVisible(birdRequest.getVisible());
 			birdService.addBird(bird);
 		} catch (Exception ex) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();

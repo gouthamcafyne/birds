@@ -14,6 +14,7 @@ public class BirdRequest extends BaseRequest {
 	private String name;
 	private String family;
 	private List<String> continent;
+	private Boolean visible;
 
 	public List<String> getContinent() {
 		return continent;
@@ -45,5 +46,13 @@ public class BirdRequest extends BaseRequest {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
 	}
 }
