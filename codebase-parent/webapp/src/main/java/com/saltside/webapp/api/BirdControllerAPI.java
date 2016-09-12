@@ -3,6 +3,8 @@
  */
 package com.saltside.webapp.api;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,8 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.common.filters.BirdFilter;
 import com.common.pojo.Bird;
-import com.common.pojo.SSBatch;
 import com.common.pojo.web.BirdRequest;
 import com.common.pojo.web.BirdResponse;
 import com.saltside.foundation.exceptions.RecordNotFound;
@@ -31,33 +33,36 @@ import com.saltside.service.bird.IBirdService;
  *
  */
 @Path("/bird")
+@Produces(MediaType.APPLICATION_JSON)
 @Component
 public class BirdControllerAPI {
 
 	@Autowired
 	private IBirdService birdService;
 
+	@Autowired
+	private BirdFilter birdFilter;
+
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/birds")
 	public Response getBirds() throws Exception {
 		BirdResponse response = new BirdResponse();
-		SSBatch<Bird> birds = birdService.getBirds();
-		if (CollectionUtils.isNotEmpty(birds.getItems())) {
-			response.setBirds(birdService.getBirds());
+		List<Bird> birds = birdService.getBirds();
+		if (CollectionUtils.isNotEmpty(birds)) {
+			response.setBirds(birdFilter.filterVisibleData(birds));
 			return Response.ok(response).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/birds/{id}")
 	public Response getBird(@PathParam("id") String birdId) throws Exception {
 		BirdResponse response = new BirdResponse();
 		Bird bird = birdService.getBird(birdId);
 		if (null != bird) {
-			response.getBirds().addItem(bird);
+			if (null != bird.getVisible() && bird.getVisible())
+				response.getBirds().addItem(bird);
 			return Response.ok(response).build();
 		}
 
@@ -65,12 +70,12 @@ public class BirdControllerAPI {
 	}
 
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/birds")
 	public Response addBird(@RequestBody BirdRequest birdRequest) throws Exception {
 		try {
 			Bird bird = new Bird();
+			bird.setId(birdRequest.getId());
 			bird.setName(birdRequest.getName());
 			bird.setFamily(birdRequest.getFamily());
 			bird.setContinents(birdRequest.getContinent());
@@ -82,7 +87,6 @@ public class BirdControllerAPI {
 	}
 
 	@DELETE
-	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/birds/{id}")
 	public Response deleteBird(@PathParam("id") String birdId) throws Exception {
 		try {

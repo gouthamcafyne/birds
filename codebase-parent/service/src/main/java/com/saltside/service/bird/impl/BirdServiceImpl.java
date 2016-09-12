@@ -4,6 +4,7 @@
 package com.saltside.service.bird.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,8 @@ public class BirdServiceImpl implements IBirdService {
 	 * 
 	 * @see com.saltside.service.bird.IBirdService#getBirds()
 	 */
-	public SSBatch<Bird> getBirds() throws Exception {
-		SSBatch<Bird> response = new SSBatch<Bird>();
-		response.setItems(birdsDAO.fetchAll());
-		return response;
+	public List<Bird> getBirds() throws Exception {
+		return birdsDAO.fetchAll();
 	}
 
 	/*

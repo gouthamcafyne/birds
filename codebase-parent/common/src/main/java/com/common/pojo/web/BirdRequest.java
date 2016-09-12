@@ -10,6 +10,7 @@ import java.util.List;
  *
  */
 public class BirdRequest extends BaseRequest {
+	private String id;
 	private String name;
 	private String family;
 	private List<String> continent;
@@ -36,5 +37,13 @@ public class BirdRequest extends BaseRequest {
 
 	public void setFamily(String family) {
 		this.family = family;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

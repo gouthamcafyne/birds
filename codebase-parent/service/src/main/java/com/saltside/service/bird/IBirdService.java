@@ -3,8 +3,9 @@
  */
 package com.saltside.service.bird;
 
+import java.util.List;
+
 import com.common.pojo.Bird;
-import com.common.pojo.SSBatch;
 import com.saltside.foundation.service.IService;
 
 /**
@@ -12,7 +13,7 @@ import com.saltside.foundation.service.IService;
  *
  */
 public interface IBirdService extends IService {
-	SSBatch<Bird> getBirds() throws Exception;
+	List<Bird> getBirds() throws Exception;
 
 	Bird getBird(String id) throws Exception;
 

@@ -1,5 +1,7 @@
 package com.common.pojo.web;
 
+import java.util.List;
+
 import com.common.pojo.Bird;
 import com.common.pojo.SSBatch;
 
@@ -14,7 +16,7 @@ public class BirdResponse extends BaseResponse {
 		return birds;
 	}
 
-	public void setBirds(SSBatch<Bird> birds) {
-		this.birds = birds;
+	public void setBirds(List<Bird> birds) {
+		this.birds.setItems(birds);
 	}
 }
