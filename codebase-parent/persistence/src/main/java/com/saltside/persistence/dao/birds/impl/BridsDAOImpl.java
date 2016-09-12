@@ -42,10 +42,7 @@ public class BridsDAOImpl implements IBirdsDAO {
 	public Bird fetch(String id) throws Exception {
 		Query query = new Query();
 
-		Criteria crt = new Criteria();
-		crt.where("id").equals(id);
-
-		query.addCriteria(crt);
+		query.addCriteria((Criteria.where("_id").is(id)));
 		return mongoTemplate.findOne(query, Bird.class, MongoCollections.BIRDS.getStrcode());
 	}
 
@@ -56,7 +53,7 @@ public class BridsDAOImpl implements IBirdsDAO {
 	 * com.saltside.persistence.dao.birds.IBirdsDAO#add(com.common.pojo.Bird)
 	 */
 	public void add(Bird bird) throws Exception {
-		mongoTemplate.insert(bird,MongoCollections.BIRDS.getStrcode());
+		mongoTemplate.insert(bird, MongoCollections.BIRDS.getStrcode());
 	}
 
 	/*
@@ -67,13 +64,8 @@ public class BridsDAOImpl implements IBirdsDAO {
 	 */
 	public void delete(String id) throws Exception {
 		Query query = new Query();
-
-		Criteria crt = new Criteria();
-		crt.where("id").equals(id);
-
-		query.addCriteria(crt);
-		Bird dbird = fetch(id);
-		mongoTemplate.findAndRemove(query, Bird.class,MongoCollections.BIRDS.getStrcode());
+		query.addCriteria(Criteria.where("id").is(id));
+		mongoTemplate.findAndRemove(query, Bird.class, MongoCollections.BIRDS.getStrcode());
 	}
 
 }

@@ -6,6 +6,10 @@ import com.common.pojo.SSBatch;
 public class BirdResponse extends BaseResponse {
 	private SSBatch<Bird> birds;
 
+	public BirdResponse() {
+		birds = new SSBatch<Bird>();
+	}
+
 	public SSBatch<Bird> getBirds() {
 		return birds;
 	}

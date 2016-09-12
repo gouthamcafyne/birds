@@ -46,7 +46,8 @@ public class BirdControllerAPI {
 	@Path("/birds/{id}")
 	public BirdResponse getBird(@PathParam("id") String birdId) throws Exception {
 		BirdResponse response = new BirdResponse();
-		response.getBirds().addItem((birdService.getBird(birdId)));
+		Bird bird = birdService.getBird(birdId);
+		response.getBirds().addItem(bird);
 		return response;
 	}
 
