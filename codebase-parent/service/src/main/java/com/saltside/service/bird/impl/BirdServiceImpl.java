@@ -3,10 +3,12 @@
  */
 package com.saltside.service.bird.impl;
 
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.common.pojo.Bird;
 import com.common.pojo.SSBatch;
+import com.saltside.persistence.dao.birds.IBirdsDAO;
 import com.saltside.service.bird.IBirdService;
 
 /**
@@ -14,7 +16,10 @@ import com.saltside.service.bird.IBirdService;
  *
  */
 @Service
-public class IBirdServiceImpl implements IBirdService {
+public class BirdServiceImpl implements IBirdService {
+
+	@Autowired
+	private IBirdsDAO birdsDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -22,8 +27,9 @@ public class IBirdServiceImpl implements IBirdService {
 	 * @see com.saltside.service.bird.IBirdService#getBirds()
 	 */
 	public SSBatch<Bird> getBirds() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		SSBatch<Bird> response = new SSBatch<Bird>();
+		response.setItems(birdsDAO.fetchAll());
+		return response;
 	}
 
 	/*
@@ -32,8 +38,7 @@ public class IBirdServiceImpl implements IBirdService {
 	 * @see com.saltside.service.bird.IBirdService#getBird(java.lang.String)
 	 */
 	public Bird getBird(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return birdsDAO.fetch(id);
 	}
 
 	/*
@@ -42,8 +47,7 @@ public class IBirdServiceImpl implements IBirdService {
 	 * @see com.saltside.service.bird.IBirdService#addBird(com.common.pojo.Bird)
 	 */
 	public void addBird(Bird bird) throws Exception {
-		// TODO Auto-generated method stub
-
+		birdsDAO.add(bird);
 	}
 
 	/*
@@ -52,8 +56,8 @@ public class IBirdServiceImpl implements IBirdService {
 	 * @see com.saltside.service.bird.IBirdService#deleteBird(java.lang.String)
 	 */
 	public Bird deleteBird(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Bird bird = birdsDAO.fetch(id);
+		birdsDAO.delete(id);
+		return bird;
 	}
-
 }

@@ -3,6 +3,7 @@
  */
 package com.saltside.webapp.api;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.common.pojo.Bird;
 import com.common.pojo.web.BirdRequest;
@@ -50,9 +52,13 @@ public class BirdControllerAPI {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/birds")
-	public void addBird(BirdRequest birdRequest) throws Exception {
+	public void addBird(@RequestBody BirdRequest birdRequest) throws Exception {
 		Bird bird = new Bird();
+		bird.setName(birdRequest.getName());
+		bird.setFamily(birdRequest.getFamily());
+		bird.setContinents(birdRequest.getContinent());
 		birdService.addBird(bird);
 	}
 
