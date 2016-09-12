@@ -25,7 +25,7 @@
 			<param-name>
 				com.sun.jersey.config.property.packages
 			</param-name>
-			<param-value>com.saltside.webapp.api</param-value>
+			<param-value>com.saltside.webapp.api,com.saltside.foundation.exceptions</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>

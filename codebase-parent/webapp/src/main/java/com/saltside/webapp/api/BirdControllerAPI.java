@@ -23,6 +23,7 @@ import com.common.pojo.Bird;
 import com.common.pojo.SSBatch;
 import com.common.pojo.web.BirdRequest;
 import com.common.pojo.web.BirdResponse;
+import com.saltside.foundation.exceptions.RecordNotFound;
 import com.saltside.service.bird.IBirdService;
 
 /**
@@ -86,9 +87,11 @@ public class BirdControllerAPI {
 	public Response deleteBird(@PathParam("id") String birdId) throws Exception {
 		try {
 			birdService.deleteBird(birdId);
+		} catch (RecordNotFound ex) {
+			throw ex;
 		} catch (Exception ex) {
-			Response.status(Status.OK).build();
+			Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-		return Response.status(Status.NOT_FOUND).build();
+		return Response.status(Status.OK).build();
 	}
 }

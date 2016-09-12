@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.common.pojo.Bird;
 import com.common.pojo.SSBatch;
+import com.saltside.foundation.exceptions.RecordNotFound;
 import com.saltside.persistence.dao.birds.IBirdsDAO;
 import com.saltside.service.bird.IBirdService;
 
@@ -63,6 +64,9 @@ public class BirdServiceImpl implements IBirdService {
 	 */
 	public Bird deleteBird(String id) throws Exception {
 		Bird bird = birdsDAO.fetch(id);
+		if (null == bird) {
+			throw new RecordNotFound("Data not found");
+		}
 		birdsDAO.delete(id);
 		return bird;
 	}
