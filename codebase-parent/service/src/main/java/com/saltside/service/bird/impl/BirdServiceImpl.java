@@ -3,6 +3,8 @@
  */
 package com.saltside.service.bird.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,10 @@ public class BirdServiceImpl implements IBirdService {
 	 * @see com.saltside.service.bird.IBirdService#addBird(com.common.pojo.Bird)
 	 */
 	public void addBird(Bird bird) throws Exception {
+		if (null == bird.getVisible()) {
+			bird.setVisible(true);
+		}
+		bird.setAdded(new Date().toGMTString());
 		birdsDAO.add(bird);
 	}
 
