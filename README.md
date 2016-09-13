@@ -19,7 +19,7 @@ B.1
 C.1 Setup - Without Using Eclipse
 
 	1. Go to codebase-parent folder in the clone create in #B.1 - Step #1
-	2. Give MongoDB credentials in codebase-parent\webapp\src\main\resources\mongodb.properties and  			   E:\Project\codebase\saltside\birds\codebase-parent\webapp\src\test\resources
+	2. Give MongoDB credentials in codebase-parent\webapp\src\main\resources\mongodb.properties and E:\Project\codebase\saltside\birds\codebase-parent\webapp\src\test\resources
 
 		Example:
 			app.mongodb.host=127.0.0.1
