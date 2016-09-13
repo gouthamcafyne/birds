@@ -45,8 +45,8 @@
 		<constructor-arg name="password" value="${app.mongodb.password}" />
 	</bean> -->
 	
-	<mongo:mongo host="127.0.0.1" port="27017" />
-	<mongo:db-factory dbname="saltside" />
+	<mongo:mongo id="mongoRef" host="${app.mongodb.host}" port="27017" />
+	<mongo:db-factory dbname="${app.mongodb.database}" mongo-ref="mongoRef" username="${app.mongodb.username}" password="${app.mongodb.password}"/>
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
